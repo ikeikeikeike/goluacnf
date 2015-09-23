@@ -1,0 +1,2 @@
+# go-luacnf
+thats convenient
