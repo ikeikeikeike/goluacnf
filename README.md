@@ -89,6 +89,64 @@ func (app *App) initConfig() {
 }
 ```
 
-### Changing a environment
+### Change a environment on console
 
+If we want to change our environment on console its like this.
 
+```bash
+$ GOLUACNF_ENV=production go run server.go
+```
+
+### Touch a conf's data
+
+goluacnf have a variety of methods that we can choose those methods.
+
+```go
+cnf, _ := goluacnf.Register(
+    path.Join(goluacnf.Root, "configs/config.lua"),
+    goluacnf.Env,
+)
+
+cnf.String("String") // "1"
+cnf.Int("Int")
+cnf.Int64("Int")
+cnf.Float("Float")
+cnf.Float32("Float")
+cnf.Bool("Yes")      // true
+cnf.Bool("No")       // false
+// cnf.Map(&c)
+```
+
+That can map to struct also.
+
+```go
+type testcnf struct {
+	String  string
+	Int     int
+	Float   float64
+	Yes     bool
+	No      bool
+	Tbl     []struct {
+		First  string
+		Second string
+		Third  string
+	}
+}
+
+func Doing() {
+    cnf, _ := goluacnf.Register(
+        path.Join(goluacnf.Root, "configs/config.lua"),
+        goluacnf.Env,
+    )
+
+    c := testcnf{}
+    cnf.Map(&c)
+
+    c.String // "1"
+    c.Int
+    c.Float
+    c.Yes    // true
+    c.No     // false
+    c.Tbl    // []struct  {First:"dev1", Second:"dev1", Third:"dev1"}, {First:"dev2", Second:"de,,,,, }
+}
+```
