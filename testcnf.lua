@@ -9,6 +9,24 @@ common = {
     letter_a = "a", -- site title
     letter_b = "b",
     letter_c = "c",
+    string = "1",
+    int = 1,
+    float = 0.01,
+    yes = true,
+    no = false,
+    map = {{
+        first = "common1",
+        second = "common1",
+        third = "common1",
+    },{
+        first = "common2",
+        second = "common2",
+        third = "common2",
+    },{
+        first = "common3",
+        second = "common3",
+        third = "common3",
+    }}
 }
 
 development = merge(common, {
@@ -51,7 +69,7 @@ production = merge(common, {
 overwrite = merge(common, {
     name = "overwrite",
     dsn = "postgres://username:password@overwrite.local:5432/goluacnf",
-    table = {{
+    map = {{
         first = "overwrite1",
         second = "overwrite1",
         third = "overwrite1",
