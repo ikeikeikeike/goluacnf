@@ -88,6 +88,15 @@ func TestTypes(t *testing.T) {
 	}
 }
 
+func TestPool(t *testing.T) {
+	Pool = Config{}
+	_, _ = getConfig()
+
+	if _, ok := Pool.GetData()["Name"]; !ok {
+		t.Fatalf("Fatal Data pooling: `%v`.", Pool)
+	}
+}
+
 func checkFatal(t *testing.T, err error) {
 	if err == nil {
 		return

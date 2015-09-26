@@ -7,12 +7,14 @@ import (
 	"github.com/yuin/gopher-lua"
 )
 
-type Data map[interface{}]interface{}
+var Pool Config
 
 type Config struct {
 	data Data
 	tbl  *lua.LTable
 }
+
+type Data map[interface{}]interface{}
 
 func (c *Config) GetData() Data {
 	return c.data
@@ -66,7 +68,10 @@ func Register(filepath, environ string) (Config, error) {
 		return Config{}, err
 	}
 
-	return NewConfig(L.GetGlobal(environ).(*lua.LTable))
+	cnf, err := NewConfig(L.GetGlobal(environ).(*lua.LTable))
+	Pool = cnf
+
+	return cnf, err
 }
 
 func mapper(tbl *lua.LTable) (map[interface{}]interface{}, error) {
